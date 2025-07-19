@@ -34,6 +34,10 @@ jobs:
       - name: Make
         run: npm run make -- --arch=${{ matrix.arch }}
 
+      - name: Ad-hoc sign app
+        if: runner.os == 'macOS'
+        run: codesign --force --deep --sign - "out/AudioVideoMerger-darwin-${{ matrix.arch }}/AudioVideoMerger.app"
+
       - name: Test
         run: npm test
 
